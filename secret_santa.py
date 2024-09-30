@@ -1,11 +1,14 @@
 import itertools
 
+"""Populate the script with all permutations"""
 def generate_permutations(people):
     return list(itertools.permutations(people))
 
+"""given a draw, check whether the draw is valid or not according to the rules that are in-use"""
 def valid(people, draw):
-    people = draw
-    draw = people
+    for i in range(len(people)):
+        if people[i] == draw[i]:
+            return False
     return True
 
 def main():
