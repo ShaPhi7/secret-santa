@@ -34,8 +34,11 @@ class TestSecretSanta(unittest.TestCase):
 
     def test_count_valid_permutations(self):
         permutations = secret_santa.generate_permutations(self.people)
-        count = secret_santa.countValidPermutations(self.people, permutations)
-        self.assertEqual(count, 2) # ('A1', 'A2', 'B1') and ('A2', 'A1', 'B1') (they have original positions)
+        expected_valid_count = 2 # ('A2', 'B1', 'A1') and ('B1', 'A1', 'A2')
+        
+        count = secret_santa.count_valid(self.people, permutations)
+        
+        self.assertEqual(count, expected_valid_count) 
 
 if __name__ == '__main__':
     unittest.main()

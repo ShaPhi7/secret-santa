@@ -11,9 +11,18 @@ def valid(people, draw):
             return False
     return True
 
+def count_valid(people, permutations):
+    valid_permutations = [p for p in permutations if valid(people, p)]
+    return len(valid_permutations)
+
 def main():
-    permutations = generate_permutations(["A1", "A2", "B1", "B2", "C1", "C2", "C3"])
-    print(permutations)
+    people = ["A1", "A2", "B1", "B2", "C1", "C2", "C3"]
+    permutations = generate_permutations(people)
+
+    valid_count = count_valid(people, permutations)
+
+    print(f"Total permutations: {len(permutations)}")
+    print(f"Valid permutations: {valid_count}")
 
 if __name__ == "__main__":
     main()
