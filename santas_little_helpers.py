@@ -11,11 +11,21 @@ def count_valid(params, permutations):
 
 """given a draw, check whether the draw is valid or not according to the rules that are in-use"""
 def validate_draw(params, draw):
-    
-    for i in range(len(params.people)):
-        if not params.allow_draw_own_name and params.people[i] == draw[i]:
+    people = params.people
+
+    for i in range(len(people)):
+        person = people[i]
+        drawn_name = draw[i]
+
+        if not params.allow_draw_own_name and samePerson(person, drawn_name):
             return False
-        if params.people[i][0] == draw[i][0] and not params.people[i] == draw[i]:
+        if familyMember(person, drawn_name):
            return False
-    
+        
     return True
+
+def samePerson(person, other):
+    return person == other
+
+def familyMember(person, other):
+    return person[0] == other[0] and not samePerson(person, other)

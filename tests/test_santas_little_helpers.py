@@ -1,5 +1,5 @@
 import unittest
-from santas_little_helpers import validate_draw, generate_permutations, count_valid
+from santas_little_helpers import validate_draw, generate_permutations, count_valid, samePerson, familyMember
 from secret_santa import Parameters
 
 class TestSantasLittleHelpers(unittest.TestCase):
@@ -53,3 +53,27 @@ class TestSantasLittleHelpers(unittest.TestCase):
         count = count_valid(params, permutations)
         
         self.assertEqual(count, expected_valid_count) 
+
+    def test_same_person(self):
+        person = "A1"
+        other = "A1"
+
+        self.assertTrue(samePerson(person, other))
+
+    def test_not_same_person(self):
+        person = "A1"
+        other = "A2"
+
+        self.assertFalse(samePerson(person, other))
+
+    def test_family_member(self):
+        person = "A1"
+        other = "A2"
+        
+        self.assertTrue(familyMember(person, other))
+
+    def test_not_family_member(self):
+        person = "A1"
+        other = "B1"
+
+        self.assertFalse(familyMember(person, other))
