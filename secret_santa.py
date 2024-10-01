@@ -9,6 +9,9 @@ def valid(people, draw):
     for i in range(len(people)):
         if people[i] == draw[i]:
             return False
+        if people[i][0] == draw[i][0]:
+            return False
+    
     return True
 
 def count_valid(people, permutations):
