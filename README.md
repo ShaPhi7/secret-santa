@@ -6,6 +6,12 @@ With what probability will they succeed in having a valid draw? It was this prob
 
 So rather than looking for clever code or efficient solutions here, the purpose of this project is to provide a simple combinatorial fact-check of the answers to the questions above.
 
+# Command Line
+
+Run the program from the command line using `python secret_santa.py --people A1 A2 B1`.
+
+Run `python secret_santa.py --help` for more details on the arguments that can be passed in.
+
 # Test Suite
 
 Run the test suite from the command line using `python -m unittest tests/test_secret_santa.py`
