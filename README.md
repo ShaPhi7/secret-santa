@@ -1,4 +1,4 @@
-# secret-santa
+# secret-santa-combinatorics
 
 Imagine an extended family pulling names out of a hat for [Secret Santa](https://en.wikipedia.org/wiki/Secret_Santa). They aren't going to want to draw their own name. They also aren't going to want to draw the name of their siblings, as they will already be buying a present for them anyway. If someone draws a valid name, they will have to put that name back in and draw a new name, but if they are the last person, there's no other names for them to draw, and the whole draw will need to be redone.
 
@@ -47,3 +47,10 @@ When $n$ is large, the chance of a permutation being a derangement is **36.79%**
 ```math
 \frac{1}{e}
 ```
+# Open Questions
+
+- How does introducing families impact the results, where a family is two or more people who **can not** draw each other (and multiple families are possible)? Is there a formula to predict this? We have added this into the script, but have not been able to derive a formula - I suspect the way to approach this is through working out the reverse result (assume family members **must** draw each other).
+
+- In a real Secret Santa, we may want to avoid people drawing the same name as in the previous year. How does this affect the results in the second year?
+
+- In a real Secret Santa, if a person draws an invalid name, they might just put that name back in and draw another. How does this impact the results?
