@@ -1,5 +1,6 @@
 import unittest
-from santas_little_helpers import valid, generate_permutations, count_valid
+from santas_little_helpers import validate_draw, generate_permutations, count_valid
+from secret_santa import Parameters
 
 class TestSantasLittleHelpers(unittest.TestCase):
 
@@ -18,28 +19,37 @@ class TestSantasLittleHelpers(unittest.TestCase):
             ('B1', 'A1', 'A2'),
             ('B1', 'A2', 'A1')
         ]
+        
         self.assertEqual(perms, expected_perms)
 
     def test_generate_permutations_count(self):
         permutations = generate_permutations(self.seven_people)
+
         self.assertEqual(len(permutations), 5040) #7!
 
     def test_valid_draw(self):
+        params = Parameters(people=self.four_people)
         draw = ["C1", "B1", "A1", "A2"]
-        self.assertTrue(valid(self.four_people, draw))
+
+        self.assertTrue(validate_draw(params, draw))
 
     def test_drawing_self_is_invalid(self):
+        params = Parameters(people=self.three_people)
         draw = ["A1", "B1", "A2"]
-        self.assertFalse(valid(self.three_people, draw))
+
+        self.assertFalse(validate_draw(params, draw))
 
     def test_drawing_family_is_invalid(self):
+        params = Parameters(people=self.four_people)
         draw = ["A2", "B1", "C1", "A1"] # A1 has drawn A2
-        self.assertFalse(valid(self.four_people, draw))
+
+        self.assertFalse(validate_draw(params, draw))
 
     def test_count_valid_permutations(self):
-        permutations = generate_permutations(self.four_people)
-        expected_valid_count = 4 # ('A2', 'B1', 'A1') and ('B1', 'A1', 'A2')
-        
-        count = count_valid(self.four_people, permutations)
+        params = Parameters(people=self.four_people)
+        permutations = generate_permutations(params.people)
+
+        expected_valid_count = 4
+        count = count_valid(params, permutations)
         
         self.assertEqual(count, expected_valid_count) 

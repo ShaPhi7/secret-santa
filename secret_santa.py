@@ -7,16 +7,30 @@ def main():
         '--people', 
         nargs='+', 
         default=["A1", "A2", "B1", "B2", "C1", "C2", "C3"],
-        help='Each person hould be of the from A#, where the first letter indicates the family they belong to. (e.g., A1 A2 B1 C1)'
+        help='Each person hould be of the from A#, where the first letter indicates the family they belong to. (e.g., A1 A2 B1 C1).'
+    )
+    parser.add_argument(
+        '--allow-draw-own-name', 
+        action='store_true',
+        help='Permutations where someone has drawn their own name will be allowed (normally, they are disallowed).'
     )
 
     args = parser.parse_args()
 
     permutations = generate_permutations(args.people)
-    valid_count = count_valid(args.people, permutations)
+
+    params = Parameters(args.people,
+                        args.allow_draw_own_name)
+
+    valid_count = count_valid(params, permutations)
 
     print(f"Total permutations: {len(permutations)}")
     print(f"Valid permutations: {valid_count}")
+
+class Parameters:
+    def __init__(self, people, allow_draw_own_name=False):
+        self.people = people
+        self.allow_draw_own_name = allow_draw_own_name
 
 if __name__ == "__main__":
     main()
