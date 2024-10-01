@@ -14,13 +14,19 @@ def main():
         action='store_true',
         help='Permutations where someone has drawn their own name will be allowed (normally, they are disallowed).'
     )
+    parser.add_argument(
+        '--allow-draw-family-member', 
+        action='store_true',
+        help='Permutations where someone has drawn their own name will be allowed (normally, they are disallowed).'
+    )
 
     args = parser.parse_args()
 
     permutations = generate_permutations(args.people)
 
     params = Parameters(args.people,
-                        args.allow_draw_own_name)
+                        args.allow_draw_own_name,
+                        args.allow_draw_family_member)
 
     valid_count = count_valid(params, permutations)
 
@@ -28,9 +34,12 @@ def main():
     print(f"Valid permutations: {valid_count}")
 
 class Parameters:
-    def __init__(self, people, allow_draw_own_name=False):
+    def __init__(self, people,
+                 allow_draw_own_name=False,
+                 allow_draw_family_member=False):
         self.people = people
         self.allow_draw_own_name = allow_draw_own_name
+        self.allow_draw_family_member = allow_draw_family_member
 
 if __name__ == "__main__":
     main()

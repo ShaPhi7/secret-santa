@@ -19,8 +19,8 @@ def validate_draw(params, draw):
 
         if not params.allow_draw_own_name and samePerson(person, drawn_name):
             return False
-        if familyMember(person, drawn_name):
-           return False
+        if not params.allow_draw_family_member and familyMember(person, drawn_name):
+            return False
         
     return True
 
