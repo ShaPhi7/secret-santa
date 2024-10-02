@@ -10,8 +10,22 @@ So rather than looking for clever code or efficient solutions here, the purpose 
 
 Run the program from the command line using `python secret_santa.py --people A1 A2 B1`.
 
-Run `python secret_santa.py --help` for more details on the arguments that can be passed in.
+Run `python secret_santa.py --help` for more details on the arguments that can be passed in:
 
+Given a list of players, the program will compute the total number of valid permutations given the ruleset required.
+```
+options:
+  -h, --help            show this help message and exit
+  -p PEOPLE [PEOPLE ...], -P PEOPLE [PEOPLE ...], --people PEOPLE [PEOPLE ...]
+                        Each person hould be of the from A#, where the first letter indicates the family they belong to. (e.g., A1 A2 B1 C1).
+  -O, --allow-draw-own-name
+                        Permutations where someone has drawn their own name will be allowed (normally, they are disallowed).
+  -F, --allow-draw-family-member
+                        Permutations where someone has drawn their own name will be allowed (normally, they are disallowed).
+  -2, --second-draw     Permutations shown for a second draw with the extra rule that nobody can have the same name they drew in the first draw (the results of which are not known, other than the fact that
+                        they were valid).
+  -V, --verbose         Prints out the permutations, in addition to the counts.
+```
 # Test Suite
 
 Run the test suite from the command line using `python -m unittest tests/test_secret_santa.py`
@@ -57,6 +71,6 @@ When $n$ is large, the chance of a permutation being a derangement is **36.79%**
 
 - How does introducing families impact the results, where a family is two or more people who **can not** draw each other (and multiple families are possible)? Is there a formula to predict this? We have added this into the script, but have not been able to derive a formula - I suspect the way to approach this is through working out the reverse result (assume family members **must** draw each other).
 
-- In a real Secret Santa, we may want to avoid people drawing the same name as in the previous year. How does this affect the results in the second year?
+- In a real Secret Santa, we may want to avoid people drawing the same name as in the previous year. How does this affect the results in the second year? This is now added to the program, but is there a formula we can derive to calculate it?
 
 - In a real Secret Santa, if a person draws an invalid name, they might just put that name back in and draw another. How does this impact the results?
