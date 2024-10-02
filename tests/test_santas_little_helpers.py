@@ -5,19 +5,19 @@ from secret_santa import Parameters
 class TestSantasLittleHelpers(unittest.TestCase):
 
     def setUp(self):
-        self.three_people = ["A1", "B1", "C1"]
-        self.four_people = ["A1", "A2", "B1", "C1"]
-        self.seven_people = ["A1", "A2", "B1", "B2", "C1", "C2", "C3"]
+        self.three_people = ("A1", "B1", "C1")
+        self.four_people = ("A1", "A2", "B1", "C1")
+        self.seven_people = ("A1", "A2", "B1", "B2", "C1", "C2", "C3")
 
     def test_generate_permutations(self):
         perms = generate_permutations(self.three_people)
         expected_perms = [
-            ('A1', 'B1', 'C1'),
-            ('A1', 'C1', 'B1'),
-            ('B1', 'A1', 'C1'),
-            ('B1', 'C1', 'A1'),
-            ('C1', 'A1', 'B1'),
-            ('C1', 'B1', 'A1')
+            ("A1", "B1", "C1"),
+            ("A1", "C1", "B1"),
+            ("B1", "A1", "C1"),
+            ("B1", "C1", "A1"),
+            ("C1", "A1", "B1"),
+            ("C1", "B1", "A1")
         ]
         
         self.assertEqual(perms, expected_perms)
@@ -29,32 +29,32 @@ class TestSantasLittleHelpers(unittest.TestCase):
 
     def test_valid_draw(self):
         params = Parameters(people=self.four_people)
-        draw = ["C1", "B1", "A1", "A2"]
+        draw = ("C1", "B1", "A1", "A2")
 
         self.assertTrue(validate_draw(params, draw))
 
     def test_drawing_self_is_invalid(self):
         params = Parameters(people=self.three_people)
-        draw = ["A1", "C1", "B1"]
+        draw = ("A1", "C1", "B1")
 
         self.assertFalse(validate_draw(params, draw))
 
     def test_drawing_family_is_invalid(self):
         params = Parameters(people=self.four_people)
-        draw = ["A2", "B1", "C1", "A1"] # A1 has drawn A2
+        draw = ("A2", "B1", "C1", "A1") # A1 has drawn A2
 
         self.assertFalse(validate_draw(params, draw))
 
     def test_same_name_as_prev_draw_invalid(self):
-        previous_draw = ["B1", "C1", "A1"]
-        draw = ["B1", "C1", "A1"]
+        previous_draw = ("B1", "C1", "A1")
+        draw = ("B1", "C1", "A1")
         params = Parameters(people=self.three_people, previous_draw=previous_draw)
         
         self.assertFalse(validate_draw(params, draw, previous_draw))
 
     def test_different_name_as_prev_draw_valid(self):
-        previous_draw = ["B1", "C1", "A1"]
-        draw = ["C1", "A1", "B1"]
+        previous_draw = ("B1", "C1", "A1")
+        draw = ("C1", "A1", "B1")
         params = Parameters(people=self.three_people, previous_draw=previous_draw)
         
         self.assertTrue(validate_draw(params, draw, previous_draw))

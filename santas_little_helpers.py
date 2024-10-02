@@ -1,22 +1,26 @@
 import itertools
 
 def draw(params):
+    
     permutations = generate_permutations(params.people)
     
     valid_permutations = compute_valid(params, permutations)
     params.previous_draw = valid_permutations
-    
+    verbose = params.verbose
     if params.second_draw:
         fully_valid_permutations = compute_valid(params, permutations)
-        print(f"Total permutations (first draw): {len(permutations)}")
-        print(f"Valid permutations (first draw): {len(valid_permutations)}")
-        print(f"Valid permutations (second draw): {len(fully_valid_permutations)}")
+        log("Total permutations (first draw)", permutations, verbose)
+        log("Valid permutations (first draw)", valid_permutations, verbose)
+        print(f"Total possibilities (second draw): {len(permutations)*len(valid_permutations)}")
+        log("Valid possibilities (second draw)", fully_valid_permutations, verbose)
         print(f"Total permutations: {len(permutations)**2}")
     else:
-        print(f"Total permutations: {len(permutations)}")
-        print(f"Valid permutations: {len(valid_permutations)}")
+        log("Total permutations", permutations, verbose)
+        log("Valid permutations", valid_permutations, verbose)
 
-    return permutations
+def log(label, permutations, verbose):
+    print(f"{label}: {len(permutations)}")
+    print(f"{label}: {permutations}\n" if verbose else "", end = "")
 
 """Populate the script with all permutations"""
 def generate_permutations(people):

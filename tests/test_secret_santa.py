@@ -36,7 +36,6 @@ class TestSecretSanta(unittest.TestCase):
         output = mock_stdout.getvalue()
         self.assertIn("Total permutations: 6", output)
         self.assertIn("Valid permutations: 6", output)
-
         
     @patch('sys.stdout', new_callable=StringIO)  # Capture print output
     @patch('sys.argv', new=['main.py', '--people', 'A1', 'B1', 'C1', '--second-draw'])
@@ -45,7 +44,32 @@ class TestSecretSanta(unittest.TestCase):
         output = mock_stdout.getvalue()
         self.assertIn("Total permutations (first draw): 6", output)
         self.assertIn("Valid permutations (first draw): 2", output)
-        self.assertIn("Valid permutations (second draw): 2", output)
+        self.assertIn("Total possibilities (second draw): 12", output)
+        self.assertIn("Valid possibilities (second draw): 2", output)
+        self.assertIn("Total permutations: 36", output)
+
+    @patch('sys.stdout', new_callable=StringIO)  # Capture print output
+    @patch('sys.argv', new=['main.py', '--people', 'A1', 'B1', 'C1', '-V'])
+    def test_main_verbose_first(self, mock_stdout):
+        secret_santa.main()
+        output = mock_stdout.getvalue()
+        self.assertIn("Total permutations: 6", output)
+        self.assertIn("Total permutations: [('A1', 'B1', 'C1'), ('A1', 'C1', 'B1'), ('B1', 'A1', 'C1'), ('B1', 'C1', 'A1'), ('C1', 'A1', 'B1'), ('C1', 'B1', 'A1')]", output)
+        self.assertIn("Valid permutations: 2", output)
+        self.assertIn("Valid permutations: [('B1', 'C1', 'A1'), ('C1', 'A1', 'B1')]", output)
+
+    @patch('sys.stdout', new_callable=StringIO)  # Capture print output
+    @patch('sys.argv', new=['main.py', '--people', 'A1', 'B1', 'C1', '--second-draw', '--verbose'])
+    def test_main_verbose_second(self, mock_stdout):
+        secret_santa.main()
+        output = mock_stdout.getvalue()
+        self.assertIn("Total permutations (first draw): 6", output)
+        self.assertIn("Total permutations (first draw): [('A1', 'B1', 'C1'), ('A1', 'C1', 'B1'), ('B1', 'A1', 'C1'), ('B1', 'C1', 'A1'), ('C1', 'A1', 'B1'), ('C1', 'B1', 'A1')]", output)
+        self.assertIn("Valid permutations (first draw): 2", output)
+        self.assertIn("Valid permutations (first draw): [('B1', 'C1', 'A1'), ('C1', 'A1', 'B1')]", output)
+        self.assertIn("Total possibilities (second draw): 12", output)
+        self.assertIn("Valid possibilities (second draw): 2", output)
+        self.assertIn("Valid possibilities (second draw): [{('B1', 'C1', 'A1'), ('C1', 'A1', 'B1')}, {('B1', 'C1', 'A1'), ('C1', 'A1', 'B1')}]", output)
         self.assertIn("Total permutations: 36", output)
 
 if __name__ == '__main__':
