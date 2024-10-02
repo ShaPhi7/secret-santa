@@ -37,5 +37,16 @@ class TestSecretSanta(unittest.TestCase):
         self.assertIn("Total permutations: 6", output)
         self.assertIn("Valid permutations: 6", output)
 
+        
+    @patch('sys.stdout', new_callable=StringIO)  # Capture print output
+    @patch('sys.argv', new=['main.py', '--people', 'A1', 'B1', 'C1', '--second-draw'])
+    def test_main_second_draw(self, mock_stdout):
+        secret_santa.main()
+        output = mock_stdout.getvalue()
+        self.assertIn("Total permutations (first draw): 6", output)
+        self.assertIn("Valid permutations (first draw): 2", output)
+        self.assertIn("Valid permutations (second draw): 2", output)
+        self.assertIn("Total permutations: 36", output)
+
 if __name__ == '__main__':
     unittest.main()
