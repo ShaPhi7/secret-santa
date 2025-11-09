@@ -21,7 +21,7 @@ options:
   -O, --allow-draw-own-name
                         Permutations where someone has drawn their own name will be allowed (normally, they are disallowed).
   -F, --allow-draw-family-member
-                        Permutations where someone has drawn their own name will be allowed (normally, they are disallowed).
+                        Permutations where someone has drawn the name of someone from their own family will be allowed (normally, they are disallowed).
   -2, --second-draw     Permutations shown for a second draw with the extra rule that nobody can have the same name they drew in the first draw (the results of which are not known, other than the fact that
                         they were valid).
   -V, --verbose         Prints out the permutations, in addition to the counts.
